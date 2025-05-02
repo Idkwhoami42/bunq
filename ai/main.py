@@ -15,7 +15,7 @@ if not NVIDIA_API:
     raise ValueError("NVIDIA_API environment variable is not set. Please set it in your .env file.")
 
 if os.path.exists("bunq_api_context.conf"):
-    api_context = ApiContext.from_file("bunq_api_context.conf")
+    api_context = ApiContext.restore("bunq_api_context.conf")
 else:
     # Create an API context for production
     api_context = ApiContext.create(ApiEnvironmentType.SANDBOX, BUNQ_API, "Hackathon")
@@ -25,3 +25,9 @@ else:
 
 # Load the API context into the SDK
 BunqContext.load_api_context(api_context)
+
+user_context = BunqContext.user_context()
+
+
+print("Welcome to the Bunq API!")
+print(user_context.user_id)
