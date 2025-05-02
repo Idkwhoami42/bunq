@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1880448,
+        "name": "C. Mason",
+        "public_uuid": "afb19750-83cd-47e5-83b9-428410385e37",
+        "status": "ACTIVE",
+        "first_name": "Chiwei",
+        "middle_name": "",
+        "last_name": "Mason",
+        "address_main": {
+            "street": "Rozemeijer End",
+            "house_number": "67",
+            "postal_code": "0799 ZD",
+            "city": "Harderwijk",
+            "country": "NL"
+        }
+    },
+    {
+        "id": 1880450,
+        "name": "A. Underwood",
+        "public_uuid": "facbba44-7353-4643-81fe-056647e7ff6f",
+        "status": "ACTIVE",
+        "first_name": "Abigail",
+        "middle_name": "",
+        "last_name": "Underwood",
+        "address_main": {
+            "street": "Coffey Crescent",
+            "house_number": "85",
+            "postal_code": "7475 SN",
+            "city": "Amsterdam",
+            "country": "NL"
+        }
+    },
+    {
+        "id": 1880451,
+        "name": "T. Fisher",
+        "public_uuid": "c24351f5-450c-47b7-ae52-12977a17d6a9",
+        "status": "ACTIVE",
+        "first_name": "Thijs",
+        "middle_name": "",
+        "last_name": "Fisher",
+        "address_main": {
+            "street": "Quinn Crescent",
+            "house_number": "992",
+            "postal_code": "4025 EA",
+            "city": "Almere",
+            "country": "NL"
+        }
+    }
+]

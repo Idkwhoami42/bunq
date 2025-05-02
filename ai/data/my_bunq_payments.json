@@ -1,0 +1,314 @@
+[
+    {
+        "id": 25278266,
+        "amount": {
+            "value": "-14.13",
+            "currency": "EUR"
+        },
+        "description": "Ridammerhoeve Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Ridammerhoeve"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278264,
+        "amount": {
+            "value": "-13.16",
+            "currency": "EUR"
+        },
+        "description": "Salon Tropica Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Salon Tropica"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278262,
+        "amount": {
+            "value": "-14.29",
+            "currency": "EUR"
+        },
+        "description": "1PASSWORD Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "1PASSWORD"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278260,
+        "amount": {
+            "value": "-18.43",
+            "currency": "EUR"
+        },
+        "description": "MCD PALMA AEROPUERTO I Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "MCD PALMA AEROPUERTO I"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278258,
+        "amount": {
+            "value": "-12.22",
+            "currency": "EUR"
+        },
+        "description": "HMSHOST AMSTERDAM SCHI Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "HMSHOST AMSTERDAM SCHI"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278256,
+        "amount": {
+            "value": "-14.61",
+            "currency": "EUR"
+        },
+        "description": "Cut Throat Amsterdam Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Cut Throat Amsterdam"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278254,
+        "amount": {
+            "value": "-16.31",
+            "currency": "EUR"
+        },
+        "description": "Vroesenpaviljoen Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Vroesenpaviljoen"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278253,
+        "amount": {
+            "value": "6987.12",
+            "currency": "EUR"
+        },
+        "description": "Salary 5 months since creation",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "bunq B.V."
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278298,
+        "amount": {
+            "value": "-13.18",
+            "currency": "EUR"
+        },
+        "description": "McDonald's Muntplein Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "McDonald's Muntplein"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278296,
+        "amount": {
+            "value": "-19.82",
+            "currency": "EUR"
+        },
+        "description": "Starbucks ASS 8907 Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Starbucks ASS 8907"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278294,
+        "amount": {
+            "value": "-17.60",
+            "currency": "EUR"
+        },
+        "description": "Decathlon Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Decathlon"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278292,
+        "amount": {
+            "value": "-13.55",
+            "currency": "EUR"
+        },
+        "description": "LA BELGIQUE GOURMANDE Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "LA BELGIQUE GOURMANDE"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278290,
+        "amount": {
+            "value": "-15.96",
+            "currency": "EUR"
+        },
+        "description": "Etos Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Etos"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278288,
+        "amount": {
+            "value": "-11.93",
+            "currency": "EUR"
+        },
+        "description": "AH Lindeman Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "AH Lindeman"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278286,
+        "amount": {
+            "value": "-11.57",
+            "currency": "EUR"
+        },
+        "description": "CCV*BAR RESTAURANT LEL Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "CCV*BAR RESTAURANT LEL"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278285,
+        "amount": {
+            "value": "6987.12",
+            "currency": "EUR"
+        },
+        "description": "Salary 5 months since creation",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "bunq B.V."
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278314,
+        "amount": {
+            "value": "-10.95",
+            "currency": "EUR"
+        },
+        "description": "CCV*MCDONALDS ALBERT C Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "CCV*MCDONALDS ALBERT C"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278312,
+        "amount": {
+            "value": "-15.93",
+            "currency": "EUR"
+        },
+        "description": "Smullers ASS 8905 Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Smullers ASS 8905"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278310,
+        "amount": {
+            "value": "-18.52",
+            "currency": "EUR"
+        },
+        "description": "MCDONALDS RESTAURANT Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "MCDONALDS RESTAURANT"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278308,
+        "amount": {
+            "value": "-15.66",
+            "currency": "EUR"
+        },
+        "description": "Ikea Haarlem Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Ikea Haarlem"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278306,
+        "amount": {
+            "value": "-15.19",
+            "currency": "EUR"
+        },
+        "description": "ETOS 7992 Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "ETOS 7992"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278304,
+        "amount": {
+            "value": "-13.24",
+            "currency": "EUR"
+        },
+        "description": "Ikea Haarlem Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Ikea Haarlem"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278302,
+        "amount": {
+            "value": "-18.63",
+            "currency": "EUR"
+        },
+        "description": "Booking.com Amsterdam, NL\n",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "Booking.com"
+        },
+        "merchant_reference": null
+    },
+    {
+        "id": 25278301,
+        "amount": {
+            "value": "6987.12",
+            "currency": "EUR"
+        },
+        "description": "Salary 5 months since creation",
+        "geolocation": null,
+        "counterparty_alias": {
+            "name": "bunq B.V."
+        },
+        "merchant_reference": null
+    }
+]

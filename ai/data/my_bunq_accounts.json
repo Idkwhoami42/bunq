@@ -1,0 +1,473 @@
+[
+    {
+        "id": 2108068,
+        "description": "Main",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "PHONE_NUMBER",
+                "value": "+31618903704",
+                "name": "+31618903704"
+            },
+            {
+                "type": "EMAIL",
+                "value": "test+81376cc5-bb82-4e2f-b97d-19b68e794b01@bunq.com",
+                "name": "test+81376cc5-bb82-4e2f-b97d-19b68e794b01@bunq.com"
+            },
+            {
+                "type": "IBAN",
+                "value": "NL12BUNQ2090638133",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108069,
+        "description": "General",
+        "currency": "EUR",
+        "balance": {
+            "value": "6883.97",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL27BUNQ2090616717",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108070,
+        "description": "Home",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL11BUNQ2090624086",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108071,
+        "description": "Grocery",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL30BUNQ2090636742",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108072,
+        "description": "Travel",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL95BUNQ2090637803",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108073,
+        "description": "Subscriptions",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL85BUNQ2090634103",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108074,
+        "description": "Shopping",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL86BUNQ2090613327",
+                "name": "Chiwei Mason"
+            }
+        ]
+    },
+    {
+        "id": 2108084,
+        "description": "Main",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "PHONE_NUMBER",
+                "value": "+31618915155",
+                "name": "+31618915155"
+            },
+            {
+                "type": "EMAIL",
+                "value": "test+7a7273a3-741f-4b85-8ae0-17386fb21e16@bunq.com",
+                "name": "test+7a7273a3-741f-4b85-8ae0-17386fb21e16@bunq.com"
+            },
+            {
+                "type": "IBAN",
+                "value": "NL19BUNQ2090626658",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108085,
+        "description": "General",
+        "currency": "EUR",
+        "balance": {
+            "value": "6883.51",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL17BUNQ2090622814",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108086,
+        "description": "Home",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL77BUNQ2090639970",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108087,
+        "description": "Grocery",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL25BUNQ2090603658",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108088,
+        "description": "Travel",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL36BUNQ2090636343",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108089,
+        "description": "Subscriptions",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL04BUNQ2090625279",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108090,
+        "description": "Shopping",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL50BUNQ2090638613",
+                "name": "Abigail Underwood"
+            }
+        ]
+    },
+    {
+        "id": 2108092,
+        "description": "Main",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "PHONE_NUMBER",
+                "value": "+31618921782",
+                "name": "+31618921782"
+            },
+            {
+                "type": "EMAIL",
+                "value": "test+e1363245-c1c8-4c08-8e7d-8e8b3f26adcb@bunq.com",
+                "name": "test+e1363245-c1c8-4c08-8e7d-8e8b3f26adcb@bunq.com"
+            },
+            {
+                "type": "IBAN",
+                "value": "NL62BUNQ2090635002",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108093,
+        "description": "General",
+        "currency": "EUR",
+        "balance": {
+            "value": "6879.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL59BUNQ2090632534",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108094,
+        "description": "Home",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL38BUNQ2090637471",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108095,
+        "description": "Grocery",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL39BUNQ2090630760",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108096,
+        "description": "Travel",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL08BUNQ2090639466",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108097,
+        "description": "Subscriptions",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL39BUNQ2090636580",
+                "name": "Thijs Fisher"
+            }
+        ]
+    },
+    {
+        "id": 2108098,
+        "description": "Shopping",
+        "currency": "EUR",
+        "balance": {
+            "value": "0.00",
+            "currency": "EUR"
+        },
+        "status": "ACTIVE",
+        "daily_limit": {
+            "value": "5000.00",
+            "currency": "EUR"
+        },
+        "alias": [
+            {
+                "type": "IBAN",
+                "value": "NL35BUNQ2090637137",
+                "name": "Thijs Fisher"
+            }
+        ]
+    }
+]
