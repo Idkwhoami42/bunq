@@ -43,5 +43,6 @@ profile.json
 .vscode
 
 .env
+.venv/
 
 bunq_api_context.conf
