@@ -3,6 +3,7 @@ from typing import Dict, Any, List
 from pathlib import Path
 from bunq.sdk.model.generated import endpoint
 from bunq.sdk.context.bunq_context import BunqContext
+from models.bunq import MonetaryAccount, Alias, MonetaryValue
 
 def inspect_user_attributes(limit: int = 1) -> Dict[str, Any]:
     """
@@ -266,5 +267,57 @@ def fetch_payments(
         
     except Exception as e:
         print(f"Error fetching payments: {str(e)}")
+        raise
+
+def get_user_accounts(user_name: str) -> List[Dict[str, Any]]:
+    """
+    Finds all accounts associated with a user by their name and formats them according to the Pydantic models.
+    
+    Args:
+        user_name: Name of the user to find accounts for
+    
+    Returns:
+        List of account dictionaries matching the MonetaryAccount model
+    """
+    try:
+        # Read the accounts data
+        data_dir = Path("data")
+        accounts_path = data_dir / "my_bunq_accounts.json"
+        
+        if not accounts_path.exists():
+            print(f"No accounts data found at {accounts_path}")
+            return []
+            
+        with open(accounts_path, 'r') as f:
+            all_accounts = json.load(f)
+            
+        # Filter accounts by owner name and format them
+        user_accounts = []
+        for account in all_accounts:
+            if account.get('owner_name') == user_name:
+                formatted_account = {
+                    "currency": account.get('currency'),
+                    "description": account.get('description'),
+                    "daily_limit": {
+                        "value": float(account.get('daily_limit', {}).get('value', 0)),
+                        "currency": account.get('daily_limit', {}).get('currency')
+                    },
+                    "balance": {
+                        "value": float(account.get('balance', {}).get('value', 0)),
+                        "currency": account.get('balance', {}).get('currency')
+                    },
+                    "owner_name": account.get('owner_name'),
+                    "alias": {
+                        "type": account.get('alias', {}).get('type'),
+                        "value": account.get('alias', {}).get('value'),
+                        "name": account.get('alias', {}).get('name')
+                    }
+                }
+                user_accounts.append(formatted_account)
+                
+        return user_accounts
+        
+    except Exception as e:
+        print(f"Error getting user accounts: {str(e)}")
         raise 
     
