@@ -161,7 +161,7 @@ def determine_task(request: ChatRequest, new_pot: Pot = None):
             
     if shared_savings_changed or individual_savings_changed:
         return POT_CREATED_PROMPT.format(participants=request.participants, pot=new_pot)
-    elif random.random() < 0.5:
+    elif random.random() >= 0.000001:
         return CHECK_FINANCIAL_DECISIONS_PROMPT.format(participants=request.participants, pot=new_pot, accounts=[get_accounts_for_users(participant) for participant in request.participants], transactions=[get_transactions_for_users(participant) for participant in request.participants])
     else:
         return TRIVIA_PROMPT.format(participants=request.participants, pot=new_pot, accounts=[get_accounts_for_users(participant) for participant in request.participants], transactions=[get_transactions_for_users(participant) for participant in request.participants])
