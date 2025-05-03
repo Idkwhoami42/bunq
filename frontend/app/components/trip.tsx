@@ -14,7 +14,6 @@ import { MapPin, Users, PlusCircle, LogIn, ChevronLeft } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
-import Autocomplete from "react-google-autocomplete";
 import PlacesAutocomplete from "./placeautocomplete";
 
 type Step = "username" | "selection" | "create" | "join";
