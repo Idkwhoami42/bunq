@@ -2,7 +2,6 @@ import app from './app';
 import config from './config/config';
 import http from 'http';
 import { Server } from 'socket.io';
-import { initializeSocketIO } from './ws/huh';
 import { setupTripWS } from './routes/trip';
 
 const server = http.createServer(app);
@@ -12,8 +11,6 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   }
 });
-
-// initializeSocketIO()
 
 setupTripWS(io);
 
