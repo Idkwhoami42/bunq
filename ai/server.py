@@ -230,7 +230,6 @@ def get_location_for_activity(activity: str, place: str):
         "textQuery": activity + " in " + place
     }
     
-    print("The data is: ", data)
 
     try:
         response = requests.post(url, headers=headers, json=data)

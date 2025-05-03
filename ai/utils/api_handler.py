@@ -17,7 +17,7 @@ def inspect_user_attributes(limit: int = 1) -> Dict[str, Any]:
     """
     try:
         # Get a user to inspect
-        payments = endpoint.PaymentApiObject.list().value
+        payments = endpoint.UserApiObject.list().value
         if not payments:
             print("No payments found")
             return {}
@@ -25,7 +25,7 @@ def inspect_user_attributes(limit: int = 1) -> Dict[str, Any]:
         payment = payments[0]
         
         # Get the UserPerson object
-        user_person = payment
+        user_person = payment.UserPerson
         
         # Get all attributes and their values from UserPerson
         attributes = {}
