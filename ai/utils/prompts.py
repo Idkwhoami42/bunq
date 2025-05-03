@@ -6,18 +6,20 @@ import json
 from pathlib import Path
 from models.bunq import MonetaryAccount, Alias, MonetaryValue
 import random
+
 PRE_POT_CREATION_PROMPT = """
 You are SoberBuddy, a financial planner helping a group of friends plan their budget for an upcoming event.
 
 You are in the initial planning phase where you need to:
-1. Help the group define their shared savings for the event
-2. Help each participant define their individual savings
+1. Identify the amount of money for the shared budgets. Everyone contributes to this, you don't need to ask for how it is allocated between different participants.
+2. Help each participant define their individual savings. If they say they don't have any, that's fine.
+3. You should use google_search_tool to make recommendations on budget, if the user asks for your opinion on budget otherwise don't use it.
 
 Here are the participants: {participants}
 
-The default currency is EUR, unless otherwise specified. 
+The default currency is EUR, unless otherwise specified.
 
-Please be casual, fun, and extremely concise. Make this flow in a conversation. In your response refer with "you" and names of the participants.
+Refer with "you" and names of the participants, be casual and concise.
 """
 
 POT_CAN_BE_CREATED_PROMPT = """
@@ -31,7 +33,7 @@ The default currency is EUR, unless otherwise specified.
 """
 
 POT_CREATED_PROMPT = """
-You are SoberBuddy, a c planner helping a group of friends plan their budget for an upcoming event.
+You are SoberBuddy, a financial planner helping a group of friends plan their budget for an upcoming event.
 
 The shared pot has been created. You should:
 1. Help track contributions to shared and individual savings
@@ -118,9 +120,43 @@ def get_prompt(participants: List[str], pot: Pot = None, state: State = State.PR
         return PRE_POT_CREATION_PROMPT.format(participants=participants)
 
 def determine_task(request: ChatRequest, new_pot: Pot = None):
-    if new_pot != request.pot:
+    if new_pot is None or request.pot is None:
         return POT_CREATED_PROMPT.format(participants=request.participants, pot=new_pot)
-    elif random.random() < 0:
+        
+    # Check if any shared savings amounts have changed
+    shared_savings_changed = False
+    for new_shared in new_pot.shared_savings:
+        for old_shared in request.pot.shared_savings:
+            if (new_shared.description == old_shared.description and 
+                (new_shared.amount_contributed != old_shared.amount_contributed or 
+                 new_shared.expected_amount != old_shared.expected_amount)):
+                shared_savings_changed = True
+                break
+        if shared_savings_changed:
+            break
+            
+    # Check if any individual savings amounts have changed
+    individual_savings_changed = False
+    for new_individual in new_pot.individual_savings:
+        for old_individual in request.pot.individual_savings:
+            if new_individual.description == old_individual.description:
+                for new_participant in new_individual.participant_amounts:
+                    for old_participant in old_individual.participant_amounts:
+                        if (new_participant.participant == old_participant.participant and
+                            (new_participant.amount_contributed != old_participant.amount_contributed or
+                             new_participant.expected_amount != old_participant.expected_amount)):
+                            individual_savings_changed = True
+                            break
+                    if individual_savings_changed:
+                        break
+            if individual_savings_changed:
+                break
+        if individual_savings_changed:
+            break
+            
+    if shared_savings_changed or individual_savings_changed:
+        return POT_CREATED_PROMPT.format(participants=request.participants, pot=new_pot)
+    elif random.random() < 0.5:
         return CHECK_FINANCIAL_DECISIONS_PROMPT.format(participants=request.participants, pot=new_pot, accounts=[get_accounts_for_users(participant) for participant in request.participants], transactions=[get_transactions_for_users(participant) for participant in request.participants])
     else:
         return TRIVIA_PROMPT.format(participants=request.participants, pot=new_pot, accounts=[get_accounts_for_users(participant) for participant in request.participants], transactions=[get_transactions_for_users(participant) for participant in request.participants])
@@ -227,7 +263,7 @@ def prompt_to_determine_state(request: ChatRequest):
     
     if request.pot is None:
         prompt = """
-        1. PRE_POT_CREATION: If the users have not provided enough information about their savings (individual AND shared).
+        1. PRE_POT_CREATION: If the users have not provided enough information about their savings (individual AND shared). If the user ever says they are done, follow their instructions and move to POT_CAN_BE_CREATED. Also, you only need a dollar amount and not how it is allocated between different participants/things.
         2. POT_CAN_BE_CREATED: If the users have provided enough information about their savings and have EXPLICITLY stated they have no more savings.
         """
     else:

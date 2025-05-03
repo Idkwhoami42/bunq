@@ -47,7 +47,7 @@ class Question(BaseModel):
 class Location(BaseModel):
     name: str
     google_maps_uri: str
-    website_uri: str
+    website_uri: Optional[str] = None
 
 class ChatResponse(BaseModel):
     message: str

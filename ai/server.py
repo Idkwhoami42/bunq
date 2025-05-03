@@ -125,11 +125,18 @@ def chat(request: ChatRequest) -> ChatResponse:
 
 def pre_pot_creation(request: ChatRequest):
     """Handle pre-pot creation requests"""
+    
+    google_search_tool = types.Tool(
+        google_search=types.GoogleSearch()
+    )
+    
     response = client.models.generate_content(
         model=model_name,
         contents=str(request.messages),
         config=types.GenerateContentConfig(
-            system_instruction=get_prompt(request.participants, request.pot, State.PRE_POT_CREATION, request)
+            system_instruction=get_prompt(request.participants, request.pot, State.PRE_POT_CREATION, request),
+            tools=[google_search_tool],
+            response_modalities=["TEXT"]
         )
     )
 
@@ -150,6 +157,9 @@ def pot_created(request: ChatRequest):
     new_pot = modify_pot(request.pot, request.messages)
     
     prompt_task = get_prompt(relevant_participants, new_pot, State.POT_CREATED, request)
+    
+    print("The prompt task is: ", prompt_task)
+    
     if "trivia" not in prompt_task:
         response = client.models.generate_content(
             model=model_name,
@@ -194,12 +204,16 @@ def event_started(request: ChatRequest):
             response_modalities=["TEXT"]
         ),
     )
+    
     activities, place = possible_activities(response.text)
     
     locations = [get_location_for_activity(activity, place) for activity in activities]
     
+    
     # map locations to the Location object
-    locations = [Location(name=location['displayName'], google_maps_uri=location['googleMapsUri'], website_uri=location['websiteUri']) for location in locations]
+    locations = [Location(name=location['displayName']['text'], google_maps_uri=location['googleMapsUri'], website_uri=location['websiteUri'] if 'websiteUri' in location else None) for location in locations]
+    
+    print("The locations are: ", locations)
     
     return ChatResponse(message=response.text, pot=request.pot, locations=locations)
 
@@ -215,11 +229,17 @@ def get_location_for_activity(activity: str, place: str):
     data = {
         "textQuery": activity + " in " + place
     }
+    
+    print("The data is: ", data)
 
     try:
         response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
-        return response.json()['places'][0]
+        # if the response is not empty, return the first location
+        if response.json()['places']:
+            return response.json()['places'][0]
+        else:
+            return None
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch location data: {str(e)}")
 
