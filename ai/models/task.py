@@ -1,10 +1,37 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
+from enum import Enum
 
-class Goal(BaseModel):
+class Currency(str, Enum):
+    USD = "USD"
+    EUR = "EUR"
+    GBP = "GBP"
+    CAD = "CAD"
+    AUD = "AUD"
+    CHF = "CHF"
+    JPY = "JPY"
+
+class ParticipantAmount(BaseModel):
+    participant: str
+    currency: Currency
+    expected_amount: float
+    amount_contributed: float
+
+class IndividualSaving(BaseModel):
     description: str
-    amount: float
+    participant_amounts: List[ParticipantAmount]
+
+class SharedSaving(BaseModel):
+    description: str
+    currency: Currency
+    expected_amount: float
+    amount_contributed: float
 
 class Pot(BaseModel):
     description: str
-    goals: List[Goal]
+    individual_savings: List[IndividualSaving]
+    shared_savings: List[SharedSaving]
+
+class ChatResponse(BaseModel):
+    message: str
+    pot: Optional[Pot] = None
