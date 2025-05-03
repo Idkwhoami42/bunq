@@ -163,8 +163,8 @@ export function setupTripWS(io: Server) {
                     content: msg.content,
                 })),
                 location: {
-                    latitude: 45.464664,
-                    longitude: 9.188540,
+                    latitude: trip.location.lat,
+                    longitude: trip.location.lng,
                 },
                 pot: trip.pot,
             }
