@@ -254,10 +254,10 @@ all_functions = [
     get_user_monetary_account_bank,
     get_payment_from_user_account,
     get_user_event_details,
-    generate_credit_card_user,
-    create_user_monetary_account,
-    deposit_funds_to_account_of_user,
-    pay_money_between_users
+    # generate_credit_card_user,
+    # create_user_monetary_account,
+    # deposit_funds_to_account_of_user,
+    # pay_money_between_users
 ]
 
 # if __name__ == "__main__":
