@@ -47,6 +47,7 @@ app.add_middleware(
 # Track conversation state
 conversation_states: Dict[str, ConversationState] = {}
 
+print(all_functions)
 
 def extract_participants(messages: List[Message]):
     """Extract the participants from the messages"""
@@ -57,7 +58,7 @@ def extract_participants(messages: List[Message]):
             response_mime_type="application/json",
             response_schema=RelevantParticipants,
             system_instruction="Based on the most recent user messages, choose the most relevant participants[need not be all participants]",
-            tools=all_functions,
+            # tools=all_functions,
         ),
     )
     return participants_pv.parsed
@@ -73,7 +74,7 @@ def extract_pot(messages: List[Message]):
             response_mime_type="application/json",
             response_schema=Pot,
             system_instruction="Extract the pot from the messages",
-            tools=all_functions,
+            # tools=all_functions,
         ),
     )
 
@@ -92,7 +93,7 @@ def modify_pot(pot: Pot, messages: List[Message]):
             response_mime_type="application/json",
             response_schema=Pot,
             system_instruction="Modify the pot based on the messages",
-            tools=all_functions,
+            # tools=all_functions,
         ),
     )
 
@@ -118,7 +119,7 @@ def chat(request: ChatRequest) -> ChatResponse:
             response_mime_type="application/json",
             response_schema=ConversationState,
             system_instruction=prompt_to_determine_state(request),
-            tools=all_functions,
+            # tools=all_functions,
         ),
     )
 
@@ -155,9 +156,9 @@ def pre_pot_creation(request: ChatRequest):
         model=model_name,
         contents=str(request.messages),
         config=types.GenerateContentConfig(
-            system_instruction=get_prompt(
-                request.participants, request.pot, State.PRE_POT_CREATION, request
-            ),
+            # system_instruction=get_prompt(
+            #     request.participants, request.pot, State.PRE_POT_CREATION, request
+            # ),
             tools=[google_search_tool].extend(all_functions),
             response_modalities=["TEXT"],
 
@@ -200,7 +201,7 @@ def pot_created(request: ChatRequest):
                 system_instruction=prompt_task,
                 response_mime_type="application/json",
                 response_schema=Question,
-                tools=all_functions,
+                # tools=all_functions,
             ),
         )
         if question_pv.parsed:
@@ -292,7 +293,7 @@ def possible_activities(response: str):
             response_mime_type="application/json",
             response_schema=Activities,
             system_instruction="Extract the activities from the response",
-        tools=all_functions,
+        # tools=all_functions,
 
         ),
     )

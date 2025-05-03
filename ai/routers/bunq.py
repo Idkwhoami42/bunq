@@ -61,8 +61,8 @@ def change_context(name: str):
 
 
 
-@router.get("/user-person/{name}", operation_id="get_user_person")
-def user_person(name: str):
+# @router.get("/user-person/{name}", operation_id="get_user_person")
+def get_user_details(name: str):
     """Get the user person for the given name
 
     Args:
@@ -83,8 +83,8 @@ def user_person(name: str):
     data = response.json()
     return data
 
-@router.get("/user/{name}/monetary-account-bank", operation_id="get_monetary_account_bank")
-def monetary_account_bank(name: str):
+# @router.get("/user/{name}/monetary-account-bank", operation_id="get_monetary_account_bank")
+def get_user_monetary_account_bank(name: str):
     """Get the monetary account bank for the given name
 
     Args:
@@ -102,8 +102,8 @@ def monetary_account_bank(name: str):
     data = response.json()
     return data
 
-@router.get("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
-def payment(name: str, monetaryAccountId: str):
+# @router.get("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
+def get_payment_from_user_account(name: str, monetaryAccountId: str):
     """Get the payment for the given name and monetaryAccountId
 
     Args:
@@ -122,8 +122,8 @@ def payment(name: str, monetaryAccountId: str):
     data = response.json()
     return data
 
-@router.get("/user/{name}/event", operation_id="get_event_user")
-def event(name: str):
+# @router.get("/user/{name}/event", operation_id="get_event_user")
+def get_user_event_details(name: str):
     """Get the event for the given name
 
     Args:
@@ -141,8 +141,8 @@ def event(name: str):
     data = response.json()
     return data
 
-@router.post("/user/{name}/card-credit", operation_id="create_card_credit_user")
-def card_credit(name: str):
+# @router.post("/user/{name}/card-credit", operation_id="create_card_credit_user")
+def generate_credit_card_user(name: str):
     """Get the card for the given name
 
     Args:
@@ -170,8 +170,8 @@ def card_credit(name: str):
     data = response.json()
     return data
 
-@router.post("/user/{name}/monetary-account-bank", operation_id="add_monetary_account_to_user")
-def add_monetary_account_to_user(name: str):
+# @router.post("/user/{name}/monetary-account-bank", operation_id="add_monetary_account_to_user")
+def create_user_monetary_account(name: str):
     """Add a monetary account to the given name
 
     Args:
@@ -190,8 +190,8 @@ def add_monetary_account_to_user(name: str):
     data = response.json()
     return data
 
-@router.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
-def add_money_to_account(name: str, monetaryAccountId: str):
+# @router.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
+def deposit_funds_to_account_of_user(name: str, monetaryAccountId: str):
     """Add money to the given name and monetaryAccountId
 
     Args:
@@ -210,7 +210,7 @@ def add_money_to_account(name: str, monetaryAccountId: str):
     data = response.json()
     return data
 
-@router.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="pay_money_between_users")
+# @router.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="pay_money_between_users")
 def pay_money_between_users(name1: str, monetaryAccountId1: str, name2: str, monetaryAccountId2: str, amount: float):
     """Pay money between users
 
@@ -250,12 +250,18 @@ def pay_money_between_users(name1: str, monetaryAccountId1: str, name2: str, mon
 
 
 all_functions = [
-    user_person,
-    monetary_account_bank,
-    payment,
-    event,
-    card_credit,
-    add_monetary_account_to_user,
-    add_money_to_account,
+    get_user_details,
+    get_user_monetary_account_bank,
+    get_payment_from_user_account,
+    get_user_event_details,
+    generate_credit_card_user,
+    create_user_monetary_account,
+    deposit_funds_to_account_of_user,
     pay_money_between_users
 ]
+
+# if __name__ == "__main__":
+#     # Example usage
+#     name = "C. Mason"
+
+#     print(get_user_details(name))
