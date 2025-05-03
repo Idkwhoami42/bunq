@@ -49,7 +49,23 @@ app.add_middleware(
 # Track conversation state
 conversation_states: Dict[str, ConversationState] = {}
 
-print(all_functions)
+
+def google_search(query: str):
+    """Handle google search requests"""
+    google_search_tool = types.Tool(google_search=types.GoogleSearch())
+    
+    response = client.models.generate_content(
+        model=model_name,
+        contents=query,
+        config=types.GenerateContentConfig(
+            tools=[google_search_tool]
+        ),
+    )
+    
+    return response.text
+
+true_financial_functions = [google_search] + all_functions
+
 
 def extract_participants(messages: List[Message]):
     """Extract the participants from the messages"""
@@ -121,7 +137,6 @@ def chat(request: ChatRequest) -> ChatResponse:
             response_mime_type="application/json",
             response_schema=ConversationState,
             system_instruction=prompt_to_determine_state(request),
-            # tools=all_functions,
         ),
     )
 
@@ -148,11 +163,8 @@ def chat(request: ChatRequest) -> ChatResponse:
     if conversation_state == State.EVENT_STARTED:
         return event_started(request)
 
-
 def pre_pot_creation(request: ChatRequest):
     """Handle pre-pot creation requests"""
-
-    google_search_tool = types.Tool(google_search=types.GoogleSearch())
 
     response = client.models.generate_content(
         model=model_name,
@@ -161,11 +173,10 @@ def pre_pot_creation(request: ChatRequest):
             system_instruction=get_prompt(
                 request.participants, request.pot, State.PRE_POT_CREATION, request
             ),
-            tools=[google_search_tool].extend(all_functions),
-            response_modalities=["TEXT"],
-
+            tools=true_financial_functions,
         ),
     )
+    
 
     return ChatResponse(message=response.text)
 
@@ -192,7 +203,7 @@ def pot_created(request: ChatRequest):
         response = client.models.generate_content(
             model=model_name,
             contents=str(request.messages),
-            config=types.GenerateContentConfig(system_instruction=prompt_task, tools=all_functions),
+            config=types.GenerateContentConfig(system_instruction=prompt_task, tools=true_financial_functions),
         )
     else:
         question_pv = client.models.generate_content(
@@ -229,7 +240,7 @@ def event_started(request: ChatRequest):
             system_instruction=get_prompt(
                 request.participants, request.pot, State.EVENT_STARTED, request
             ),
-            tools=[google_search_tool].extend(all_functions),
+            tools=true_financial_functions,
             response_modalities=["TEXT"],
         ),
     )
