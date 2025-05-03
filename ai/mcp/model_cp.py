@@ -8,90 +8,57 @@ from bunq import ApiEnvironmentType
 import requests
 import json
 import uvicorn
+from google import genai
+from google.genai import types
+from pydantic import BaseModel
+from typing import List
+
+class Message(BaseModel):
+    role: str
+    content: str
+
+class ChatRequest(BaseModel):
+    messages: List[Message]
 
 load_dotenv()
 
 app = FastAPI()
 
+# for 1883014 (100,000 euro), carly rogers 
+BUNQ_API = "sandbox_1ef4922132343f0676fce4bb699b145335bc58bc3fa1b3ab05cbbadf"
+token = "a8ded8ef649300ebc394192fbc30d02e083e9328edb96b058fe0abe5662751f4" 
+GEMINI_API = os.getenv("GEMINI_API_KEY")
 
-BUNQ_API1 = "42f74cf80fabb91e21fb9bde3447f793c28262048424dc4b2e58451b1d76f099"
-token1 = "148a069b2de55e951993d1dd215762dda3e502053be4900bd6a20910f5b130e2" 
-uid1 = "1880448"
-# for 1883014 (100,000 euro)
-BUNQ_API2 = "19b1837755833b1a9928c4f3e9279d265f46e7908c413d37708798ca59525f4d"
-token2 = "7903aa301c90bff9d6a1a8a614d11f47e552ba1539a9be286bdeb4bd61d8d673"
-uid2 = "1880450"
+# initialize gemini client
+client = genai.Client(api_key=GEMINI_API)
 
-BUNQ_API3 = "sandbox_1ef4922132343f0676fce4bb699b145335bc58bc3fa1b3ab05cbbadf"
-token3 = "a8ded8ef649300ebc394192fbc30d02e083e9328edb96b058fe0abe5662751f4" 
-uid3 = "1883014"
-
-BUNQ_API4 = "0c9a9b0820ddb79beb4350618161e0d4fa9856d091846da2d1221ece5708860f"
-token4 = "8142df8932f89637a4a03b608c90abdbfb4aa4fff1c8ba55e653ffbd306504c6" 
-uid4 = "1880451"
+model_name = "gemini-2.0-flash"
 
 
-uid_to_context = {uid1: (BUNQ_API1, token1), uid2: (BUNQ_API2, token2), uid3: (BUNQ_API3, token3), uid4: (BUNQ_API4, token4)}
-name_to_uid = {"C. Mason": uid1, "A. Underwood": uid2, 
-               "C. Rogers": uid3, "T. Fisher": uid4}
-BUNQ_API = BUNQ_API1
-token = token1
-
-
-# if os.path.exists("bunq_api_context1.conf"):
-#     os.remove("bunq_api_context1.conf")
+if os.path.exists("bunq_api_context.conf"):
+    os.remove("bunq_api_context.conf")
     
-# api_context = ApiContext.create(ApiEnvironmentType.SANDBOX, BUNQ_API, "Hackathon")
-# api_context.save("bunq_api_context1.conf")
+api_context = ApiContext.create(ApiEnvironmentType.SANDBOX, BUNQ_API, "Hackathon")
+api_context.save("bunq_api_context.conf")
 
 
 # Load the API context into the SDK
-# BunqContext.load_api_context(api_context)
+BunqContext.load_api_context(api_context)
 
-# user_context = BunqContext.user_context()
+user_context = BunqContext.user_context()
 
-def change_context(name: str):
-    global user_context
-    global api_context
-    if name in name_to_uid:
-        user_id = name_to_uid[name]
-        API_KEY = uid_to_context[user_id][0]
-        print(API_KEY)
-        print(user_id)
-
-        if  os.path.exists("context.conf"):
-            os.remove("context.conf")
-            print("bunq_api_context2.conf removed")
-        else:
-            print("bunq_api_context2.conf does not exist")
-
-        api_context = ApiContext.create(ApiEnvironmentType.SANDBOX, API_KEY, "Hackathon")
-        api_context.save("context.conf")
-        print("api_context created")
-        BunqContext.load_api_context(api_context)
-        print("api_context loaded")
-        user_context = BunqContext.user_context()
-        print("user_context loaded")
-    else:
-        raise ValueError("User not found")
-
-
-
-@app.get("/user-person/{name}", operation_id="get_user_person")
-def user_person(name: str):
-    """Get the user person for the given name
+@app.get("/user-person/{itemId}", operation_id="get_user_person")
+def user_person(itemId: str):
+    """Get the user person for the given itemId
 
     Args:
-        name (str): The name of the user person
+        itemId (str): The itemId of the user person
 
     Returns:
-        dict: The user person for the given name
+        dict: The user person for the given itemId
     """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
     response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user-person/{user_id}",
+        f"https://public-api.sandbox.bunq.com/v1/user-person/{itemId}",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
         timeout=1000
     )
@@ -99,18 +66,15 @@ def user_person(name: str):
     data = response.json()
     return data
 
-@app.get("/user/{name}/monetary-account-bank", operation_id="get_monetary_account_bank")
-def monetary_account_bank(name: str):
-    """Get the monetary account bank for the given name
+@app.get("/user/{userId}/monetary-account-bank", operation_id="get_monetary_account_bank")
+def monetary_account_bank(userId: str):
+    """Get the monetary account bank for the given userId
 
     Args:
-        name (str): The name of the user
+        userId (str): The userId of the user
     """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
     response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/monetary-account-bank",
+        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account-bank",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
         timeout=1000
     )
@@ -118,19 +82,16 @@ def monetary_account_bank(name: str):
     data = response.json()
     return data
 
-@app.get("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
-def payment(name: str, monetaryAccountId: str):
-    """Get the payment for the given name and monetaryAccountId
+@app.get("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
+def payment(userId: str, monetaryAccountId: str):
+    """Get the payment for the given userId and monetaryAccountId
 
     Args:
-        name (str): The name of the user
+        userId (str): The userId of the user
         monetaryAccountId (str): The monetaryAccountId of the user
-    """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
+"""
     response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/monetary-account/{monetaryAccountId}/payment",
+        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account/{monetaryAccountId}/payment",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
         timeout=1000
     )
@@ -138,37 +99,35 @@ def payment(name: str, monetaryAccountId: str):
     data = response.json()
     return data
 
-@app.get("/user/{name}/event", operation_id="get_event_user")
-def event(name: str):
-    """Get the event for the given name
+# https://public-api.sandbox.bunq.com/v1/user/{userID}/event
+@app.get("/user/{userId}/event", operation_id="get_event_user")
+def event(userId: str):
+    """Get the event for the given userId
 
     Args:
-        name (str): The name of the user
+        userId (str): The userId of the user
     """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
+
     response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/event",
+        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/event",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
         timeout=1000
     )
 
     data = response.json()
+    
     return data
 
-@app.post("/user/{name}/card-credit", operation_id="create_card_credit_user")
-def card_credit(name: str):
-    """Get the card for the given name
+# https://public-api.sandbox.bunq.com/v1/user/{userID}/card-credit
+@app.post("/user/{userId}/card-credit", operation_id="create_card_credit_user")
+def card_credit(userId: str):
+    """Get the card for the given userId
 
     Args:
-        name (str): The name of the user
+        userId (str): The userId of the user
     """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]   
     response = requests.post(
-       f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/card-credit",
+       f"https://public-api.sandbox.bunq.com/v1/user/{userId}/card-credit",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Content-Type":"application/json"},
         data=json.dumps(
             {"first_line":"text",
@@ -186,39 +145,17 @@ def card_credit(name: str):
     data = response.json()
     return data
 
-@app.post("/user/{name}/monetary-account-bank", operation_id="add_monetary_account_to_user")
-def add_monetary_account_to_user(name: str):
-    """Add a monetary account to the given name
+# adding money to account
+@app.post("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
+def add_money_to_account(userId: str, monetaryAccountId: str):
+    """Add money to the given userId and monetaryAccountId
 
     Args:
-        name (str): The name of the user
-    """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
-    response = requests.post(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/monetary-account-bank",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Content-Type":"application/json"},
-        data= json.dumps({"currency": "EUR"}),
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-@app.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
-def add_money_to_account(name: str, monetaryAccountId: str):
-    """Add money to the given name and monetaryAccountId
-
-    Args:
-        name (str): The name of the user
+        userId (str): The userId of the user
         monetaryAccountId (str): The monetaryAccountId of the user
     """
-    change_context(name)
-    user_id = name_to_uid[name]
-    token = uid_to_context[user_id][1]
     response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id}/monetary-account/{monetaryAccountId}/request-inquiry",
+        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account/{monetaryAccountId}/request-inquiry",
         headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
         timeout=1000
     )
@@ -226,48 +163,26 @@ def add_money_to_account(name: str, monetaryAccountId: str):
     data = response.json()
     return data
 
-@app.post("/user/{name}/monetary-account/{monetaryAccountId}/payment", operation_id="pay_money_between_users")
-def pay_money_between_users(name1: str, monetaryAccountId1: str, name2: str, monetaryAccountId2: str, amount: float):
-    """Pay money between users
-
-    Args:
-        name1 (str): The name of the user getting money
-        monetaryAccountId1 (str): The monetaryAccountId of the user
-        name2 (str): The name of the user sending money
-        monetaryAccountId2 (str): The monetaryAccountId of the user sending money
-        amount (float): The amount of money to pay
-    """
-    print("pay_money_between_users")
-    print(name1)
-    change_context(name1)
-    print("context changed")
-    
-    user_id1 = name_to_uid[name1]
-    token = uid_to_context[user_id1][1]
-    response1 = requests.post(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id1}/monetary-account/{monetaryAccountId1}/payment",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Content-Type":"application/json"},
-        data= json.dumps({"amount": amount}),
-        timeout=1000
-    )
-    change_context(name2)
-    user_id2 = name_to_uid[name2]
-    token = uid_to_context[user_id2][1]
-    response2 = requests.post(
-        f"https://public-api.sandbox.bunq.com/v1/user/{user_id2}/monetary-account/{monetaryAccountId2}/payment",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Content-Type":"application/json"},
-        data= json.dumps({"amount": amount}),
-        timeout=1000
-    )
-    data1 = response1.json()
-    data2 = response2.json()
-    return data1, data2
-
 mcp = FastApiMCP(app)
 
-@app.on_event("startup")
-def startup_event():
-    mcp.mount()
+tools = [
+    user_person,
+    monetary_account_bank,
+    payment,
+    event,
+    card_credit,
+    add_money_to_account
+]
+
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    mcp.mount()
+    
+    response = client.models.generate_content(
+    model=model_name,
+    contents="What is user id 1883014's monetary accounts?",
+    config=types.GenerateContentConfig(tools=tools),
+    )
+    
+    print(response)
+    print(response.text)
