@@ -48,11 +48,14 @@ class Location(BaseModel):
     name: str
     google_maps_uri: str
     website_uri: Optional[str] = None
+    latitude: Optional[float]
+    longitude: Optional[float]
 
 class ChatResponse(BaseModel):
     message: str
     pot: Optional[Pot] = None
     locations: Optional[List[Location]] = None
+    question: Optional[Question] = None
 
 class Activities(BaseModel):
     activities: List[str] = Field(description="Just the activity (e.g. 'fountain', 'park', 'museum', etc.)")
