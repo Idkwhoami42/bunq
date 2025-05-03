@@ -79,12 +79,12 @@ export interface ParticipantAmount {
     amount_contributed: number;
 }
 
-export interface IndividualGoal {
+export interface IndividualSaving {
     description: string;
     participant_amounts: ParticipantAmount[];
 }
 
-export interface SharedGoal {
+export interface SharedSaving {
     description: string;
     currency: string;
     expected_amount: number;
@@ -93,8 +93,8 @@ export interface SharedGoal {
 
 export interface Pot {
     description: string;
-    individual_goals: IndividualGoal[];
-    shared_goals: SharedGoal[];
+    individual_savings: IndividualSaving[];
+    shared_savings: SharedSaving[];
 }
 
 export interface AIMessageResponse {

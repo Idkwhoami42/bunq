@@ -31,16 +31,16 @@ export type Message = {
 
 export type Pot = {
     description: string;
-    individual_goals: IndividualGoal[];
-    shared_goals: SharedGoal[];
+    individual_savings: IndividualSaving[];
+    shared_savings: SharedSaving[];
 }
 
-export type IndividualGoal = {
+export type IndividualSaving = {
     description: string;
     participant_amounts: ParticipantAmount[];
 }
 
-export type SharedGoal = {
+export type SharedSaving = {
     description: string;
     currency: string;
     expected_amount: number;
