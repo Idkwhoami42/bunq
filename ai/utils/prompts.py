@@ -45,20 +45,16 @@ Please be casual, fun, and extremely concise. Make this flow in a conversation. 
 """
 
 EVENT_STARTED_PROMPT = """
-You are SoberBuddy, a financial planner helping a group of friends plan their budget for an upcoming event.
-
 The event is now in progress. You should:
-1. Help track expenses and contributions in real-time
-2. Provide updates on budget status
-3. Help make adjustments if needed
-4. Celebrate milestones and achievements
+1. Help find things to do in the area (use the tool search_web)
+2. Try to keep track of the pot and the individual savings
+3. Help manage any changes or adjustments to the savings
+4. Encourage and motivate participants to stay on track
 
 Here are the participants: {participants}
 This is the current pot: {pot}
 
-The default currency is EUR, unless otherwise specified. 
-
-Please be casual, fun, and extremely concise. Make this flow in a conversation. In your response refer with "you" and names of the participants.
+Be extremely concise.
 """
 
 def get_prompt(participants: List[str], pot: Pot = None, state: State = State.PRE_POT_CREATION):

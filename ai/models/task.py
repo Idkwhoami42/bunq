@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 from enum import Enum
 
@@ -35,3 +35,7 @@ class Pot(BaseModel):
 class ChatResponse(BaseModel):
     message: str
     pot: Optional[Pot] = None
+
+class Activities(BaseModel):
+    activities: List[str] = Field(description="Just the activity (e.g. 'fountain', 'park', 'museum', etc.)")
+    place: str
