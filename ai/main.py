@@ -36,19 +36,22 @@ user_context = BunqContext.user_context()
 
 print("Welcome to the Bunq API!")
 print(user_context.user_id)
-# print(inspect_user_attributes(1))
+# print(inspect_user_attributes(1).keys())
+
 users = fetch_bunq_users(
     limit=20,  # Optional: specify how many users to fetch
     output_filename="my_bunq_users.json"  # Optional: custom filename
 )
-
+print(users)
 accounts = fetch_monetary_accounts(
+    users[0]["name"],
     limit=20,  # Optional: specify how many accounts to fetch
     output_filename="my_bunq_accounts.json"  # Optional: custom filename
 )
 
 for account in accounts:
     payments = fetch_payments(
+        users[0]["name"], 
         account["id"],
         limit=20,  # Optional: specify how many payments to fetch
         output_filename="my_bunq_payments.json"  # Optional: custom filename

@@ -2,6 +2,8 @@
     {
         "id": 2108068,
         "description": "Main",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -33,6 +35,8 @@
     {
         "id": 2108069,
         "description": "General",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "6883.97",
@@ -54,6 +58,8 @@
     {
         "id": 2108070,
         "description": "Home",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -75,6 +81,8 @@
     {
         "id": 2108071,
         "description": "Grocery",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -96,6 +104,8 @@
     {
         "id": 2108072,
         "description": "Travel",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -117,6 +127,8 @@
     {
         "id": 2108073,
         "description": "Subscriptions",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -138,6 +150,8 @@
     {
         "id": 2108074,
         "description": "Shopping",
+        "owner": 1880448,
+        "owner_name": "C. Mason",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -159,6 +173,8 @@
     {
         "id": 2108084,
         "description": "Main",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -190,6 +206,8 @@
     {
         "id": 2108085,
         "description": "General",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "6883.51",
@@ -211,6 +229,8 @@
     {
         "id": 2108086,
         "description": "Home",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -232,6 +252,8 @@
     {
         "id": 2108087,
         "description": "Grocery",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -253,6 +275,8 @@
     {
         "id": 2108088,
         "description": "Travel",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -274,6 +298,8 @@
     {
         "id": 2108089,
         "description": "Subscriptions",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -295,6 +321,8 @@
     {
         "id": 2108090,
         "description": "Shopping",
+        "owner": 1880450,
+        "owner_name": "A. Underwood",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -316,6 +344,8 @@
     {
         "id": 2108092,
         "description": "Main",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -347,6 +377,8 @@
     {
         "id": 2108093,
         "description": "General",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "6879.00",
@@ -368,6 +400,8 @@
     {
         "id": 2108094,
         "description": "Home",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -389,6 +423,8 @@
     {
         "id": 2108095,
         "description": "Grocery",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -410,6 +446,8 @@
     {
         "id": 2108096,
         "description": "Travel",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -431,6 +469,8 @@
     {
         "id": 2108097,
         "description": "Subscriptions",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",
@@ -452,6 +492,8 @@
     {
         "id": 2108098,
         "description": "Shopping",
+        "owner": 1880451,
+        "owner_name": "T. Fisher",
         "currency": "EUR",
         "balance": {
             "value": "0.00",

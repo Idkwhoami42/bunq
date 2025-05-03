@@ -16,8 +16,7 @@ def inspect_user_attributes(limit: int = 1) -> Dict[str, Any]:
     """
     try:
         # Get a user to inspect
-        monetary_account_id = 2108085
-        payments = endpoint.PaymentApiObject.list(monetary_account_id).value
+        payments = endpoint.PaymentApiObject.list().value
         if not payments:
             print("No payments found")
             return {}
@@ -110,16 +109,9 @@ def fetch_bunq_users(
                 "name": user_person.display_name,
                 "public_uuid": user_person.public_uuid,
                 "status": user_person.status,
-                "first_name": user_person.first_name,
-                "middle_name": user_person.middle_name,
-                "last_name": user_person.last_name,
-                "address_main": {
-                    "street": user_person.address_main.street,
-                    "house_number": user_person.address_main.house_number,
-                    "postal_code": user_person.address_main.postal_code,
-                    "city": user_person.address_main.city,
-                    "country": user_person.address_main.country
-                }
+                "full_name": user_person.first_name + " " +user_person.middle_name + " " + user_person.last_name,
+                "gender": user_person.gender,
+                "nationality": user_person.nationality,
             }
             users_data.append(user_dict)
         
@@ -145,6 +137,7 @@ def fetch_bunq_users(
         raise
 
 def fetch_monetary_accounts(
+    name: str,
     limit: int = 10,
     output_filename: str = "monetary_accounts.json"
 ) -> List[Dict[str, Any]]:
@@ -168,6 +161,8 @@ def fetch_monetary_accounts(
             account_dict = {
                 "id": account.id_,
                 "description": account.description,
+                "owner": account.user_id,
+                "owner_name": name,
                 "currency": account.currency,
                 "balance": {
                     "value": account.balance.value,
@@ -210,6 +205,7 @@ def fetch_monetary_accounts(
         raise
 
 def fetch_payments(
+    name: str, 
     monetary_account_id: int,
     limit: int = 10,
     output_filename: str = "payments.json"
@@ -234,6 +230,7 @@ def fetch_payments(
         for payment in payments[:limit]:
             payment_dict = {
                 "id": payment.id_,
+                "sender_name": name,
                 "amount": {
                     "value": payment.amount.value,
                     "currency": payment.amount.currency
@@ -245,10 +242,7 @@ def fetch_payments(
                     "longitude": payment.geolocation.longitude
                 } if payment.geolocation else None,
 
-                "counterparty_alias": {
-                    "name": payment.counterparty_alias.label_monetary_account.display_name,
-                    # "iban": payment.counterparty_alias.counterparty_alias.label_monetary_account.iban
-                } if payment.counterparty_alias else None,
+                "counterparty_name": payment.counterparty_alias.label_monetary_account.display_name if payment.counterparty_alias else None,
                 "merchant_reference": payment.merchant_reference
             }
             payments_data.append(payment_dict)
