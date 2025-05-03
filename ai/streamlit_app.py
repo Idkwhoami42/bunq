@@ -48,7 +48,7 @@ if prompt := st.chat_input("What would you like to know about financial planning
         st.markdown(prompt)
         
          # replace user with 'sagar' in the messages
-    send_messages = [{"role": "sagar", "content": message["content"]} for message in st.session_state.messages]
+    send_messages = [{"role": "A. Underwood", "content": message["content"]} for message in st.session_state.messages]
     
     # Get the latest pot from assistant messages
     latest_pot = None
@@ -64,7 +64,7 @@ if prompt := st.chat_input("What would you like to know about financial planning
             "latitude": 37.774929,
             "longitude": -122.419418
         },
-        "participants": ["Manu", "Ege", "Sagar"],
+        "participants": ["C. Mason", "A. Underwood", "T. Fisher"],
         "messages": send_messages
     }
     
