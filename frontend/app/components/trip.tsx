@@ -158,13 +158,13 @@ export default function TripPage() {
             </Button>
           )}
           <CardTitle className="text-xl text-center">
-            {step === "username" && "Welcome to Trip Planner"}
+            {step === "username" && "Welcome to Bunq n Dunk!"}
             {step === "selection" && "What would you like to do?"}
             {step === "create" && "Create a New Trip"}
             {step === "join" && "Join an Existing Trip"}
           </CardTitle>
           <CardDescription className="text-center">
-            {step === "username" && "Please enter your username to get started"}
+            {step === "username" && "Wanna finally plan that trip?"}
             {step === "selection" &&
               "Create a new trip or join an existing one"}
             {step === "create" && "Set up your trip details"}
@@ -199,7 +199,7 @@ export default function TripPage() {
                 className="w-full flex items-center justify-center gap-2 h-16"
                 variant="outline"
               >
-                <PlusCircle className="h-5 w-5" />
+                <PlusCircle className="h-10 w-10" />
                 <div className="text-left">
                   <div className="font-medium">Create a Trip</div>
                   <div className="text-xs text-muted-foreground">
@@ -213,7 +213,7 @@ export default function TripPage() {
                 className="w-full flex items-center justify-center gap-2 h-16"
                 variant="outline"
               >
-                <LogIn className="h-5 w-5" />
+                <LogIn className="h-10 w-10" />
                 <div className="text-left">
                   <div className="font-medium">Join a Trip</div>
                   <div className="text-xs text-muted-foreground">
