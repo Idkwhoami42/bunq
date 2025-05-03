@@ -14,6 +14,8 @@ import { MapPin, Users, PlusCircle, LogIn, ChevronLeft } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import Autocomplete from "react-google-autocomplete";
+import PlacesAutocomplete from "./placeautocomplete";
 
 type Step = "username" | "selection" | "create" | "join";
 
@@ -30,8 +32,13 @@ export default function TripPage() {
   const [step, setStep] = useState<Step>("username");
   const [username, setUsername] = useState("");
   const [tripName, setTripName] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState({
+    name: "",
+    lat: 0,
+    lng: 0,
+  });
   const [tripCode, setTripCode] = useState("");
+
   const navigate = useNavigate();
 
   const handleUsernameSubmit = (e: React.FormEvent) => {
@@ -234,30 +241,21 @@ export default function TripPage() {
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Label>Select Location Type</Label>
-                <RadioGroup
-                  value={location}
-                  onValueChange={setLocation}
-                  className="grid grid-cols-3 gap-2"
-                >
-                  {locations.map((loc) => (
-                    <div key={loc.id} className="flex flex-col items-center">
-                      <RadioGroupItem
-                        value={loc.id}
-                        id={loc.id}
-                        className="peer sr-only"
-                      />
-                      <Label
-                        htmlFor={loc.id}
-                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer w-full"
-                      >
-                        <span className="text-2xl mb-1">{loc.icon}</span>
-                        <span className="text-xs font-normal">{loc.name}</span>
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
+              <div className="space-y-2">
+                <Label htmlFor="location">Location</Label>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <PlacesAutocomplete
+                    onPlaceSelect={(place) => {
+                      if (place === null) return;
+                      setLocation({
+                        name: place.description,
+                        lat: place.details?.geometry?.location.lat ?? 0,
+                        lng: place.details?.geometry?.location.lng ?? 0,
+                      })
+                    }}
+                  />
+                </div>
               </div>
 
               <Button type="submit" className="w-full">

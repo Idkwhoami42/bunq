@@ -15,7 +15,6 @@ import { Button } from "~/components/ui/button";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import type { TripT } from "~/types";
 
-
 const locationMap: Record<string, { name: string; icon: string }> = {
   beach: { name: "Beach", icon: "🏖️" },
   mountain: { name: "Mountain", icon: "🏔️" },
@@ -55,6 +54,12 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
       return;
     }
 
+    if (trip.started) {
+      toast.error("Trip has already started. Redirecting to chat...");
+      navigate(`/trip/${trip.id}/chat`);
+      return;
+    }
+
     const storedUsername = sessionStorage.getItem("username");
     if (!storedUsername) {
       toast.error("Username not found. Please log in again.");
@@ -86,36 +91,29 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
       toast.error(error);
     });
 
-    socketInstance.on("tripStarted", (tripData: TripT) => {
+    socketInstance.on("tripStarted", (tripId: string) => {
       toast.success("Trip has started!");
-      navigate("/chat");
+      navigate(`/trip/${tripId}/chat`);
     });
 
     socketInstance.on("disconnect", () => {
       console.log("Disconnected from trip socket");
-      navigate("/chat", {
-        state: {
-          trip: trip,
-        },
-      });
+      navigate("/");
     });
 
     setSocket(socketInstance);
 
-    return () => {
-      socketInstance.disconnect();
-    };
+    return () => {};
   }, []);
 
-  const handleStartTrip = useCallback(() => {
+  const handleStartTrip = () => {
     if (trip && socket) {
       socket.emit("startTrip", {
         tripId: trip.id,
       });
     }
-  }, [trip, socket]);
+  };
 
- 
   if (trip === null || username === null) {
     return (
       <div className="flex min-h-[100dvh] items-center justify-center bg-gray-50 p-4">
@@ -133,7 +131,7 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
   };
 
   const getLocationDetails = () => {
-    return locationMap[trip.location] || { name: "Unknown", icon: "🗺️" };
+    return { name: trip.location.name, icon: "🗺️" };
   };
 
   const locationDetails = getLocationDetails();
@@ -142,18 +140,12 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
     <div className="flex min-h-[100dvh] items-center justify-center bg-gray-50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xl text-center">{trip.name}</CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-6">
-          {/* Location Section */}
-          <div className="flex items-center justify-center space-x-2 p-4 bg-gray-100 rounded-lg">
-            <span className="text-3xl">{locationDetails.icon}</span>
-            <div>
-              <h3 className="font-medium">{locationDetails.name}</h3>
+          <CardTitle className="text-xl">
+            <div className="flex justify-between items-center">
+              {trip.name}
               {trip.creator === username && (
                 <p className="text-xs text-gray-500">
-                  Trip Code: {trip.id}
+                  Code: {trip.id}
                   <span
                     onClick={() => {
                       navigator.clipboard.writeText(trip.id);
@@ -165,6 +157,16 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
                   </span>
                 </p>
               )}
+            </div>
+          </CardTitle>
+        </CardHeader>
+
+        <CardContent className="space-y-6">
+          {/* Location Section */}
+          <div className="flex items-center justify-center space-x-2 p-4 bg-gray-100 rounded-lg">
+            <span className="text-3xl">{locationDetails.icon}</span>
+            <div>
+              <h3 className="font-medium">{locationDetails.name}</h3>
             </div>
           </div>
 
@@ -180,7 +182,13 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
               <div className="flex items-center justify-between p-2 bg-primary/10 rounded-md">
                 <div className="flex items-center space-x-3">
                   <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
-                    <AvatarFallback>{getInitials(username)}</AvatarFallback>
+                    <AvatarFallback>
+                      <img
+                        src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${username}`}
+                        height={30}
+                        width={30}
+                      />
+                    </AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="text-sm font-medium">{username} (You)</p>
@@ -200,8 +208,14 @@ export default function Trip({ loaderData }: Route.ComponentProps) {
                     className="flex items-center justify-between p-2 bg-gray-100 rounded-md"
                   >
                     <div className="flex items-center space-x-3">
-                      <Avatar className="h-8 w-8 bg-gray-300 text-gray-600">
-                        <AvatarFallback>{getInitials(username)}</AvatarFallback>
+                      <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
+                        <AvatarFallback>
+                          <img
+                            src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${user}`}
+                            height={30}
+                            width={30}
+                          />
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="text-sm font-medium">{user}</p>
