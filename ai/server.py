@@ -211,7 +211,13 @@ def event_started(request: ChatRequest):
     
     
     # map locations to the Location object
-    locations = [Location(name=location['displayName']['text'], google_maps_uri=location['googleMapsUri'], website_uri=location['websiteUri'] if 'websiteUri' in location else None) for location in locations]
+    locations = [Location(
+        name=location['displayName']['text'], 
+        google_maps_uri=location['googleMapsUri'], 
+        website_uri=location['websiteUri'] if 'websiteUri' in location else None,
+        latitude=location['location']['latitude'] if 'location' in location else None,
+        longitude=location['location']['longitude'] if 'location' in location else None
+    ) for location in locations]
     
     print("The locations are: ", locations)
     
@@ -223,7 +229,7 @@ def get_location_for_activity(activity: str, place: str):
     headers = {
         "Content-Type": "application/json",
         "X-Goog-Api-Key": os.getenv("GEMINI_API_KEY"),
-        "X-Goog-FieldMask": "places.displayName,places.googleMapsUri,places.websiteUri"
+        "X-Goog-FieldMask": "places.displayName,places.googleMapsUri,places.websiteUri,places.location"
     }
     
     data = {
