@@ -316,7 +316,7 @@ function ChatMessage({
                 : "bg-muted"
             }`}
           >
-            <div className="markdown m-0 max-w-[400px]">
+            <div className="markdown m-0 max-w-[400px] break-words overflow-hidden whitespace-pre-wrap">
               <ReactMarkdown>{msg.content}</ReactMarkdown>
             </div>
             <div

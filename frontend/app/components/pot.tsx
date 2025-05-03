@@ -69,7 +69,7 @@ export default function SavingsPotTracker({ pot }: SavingsPotTrackerProps) {
   const formatCurrency = (amount: number, currency = "USD") => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency,
+      currency: "EUR",
     }).format(amount);
   };
 
