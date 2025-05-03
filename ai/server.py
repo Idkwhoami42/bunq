@@ -19,183 +19,16 @@ from utils.prompts import (
     TRIVIA_PROMPT,
     CHECK_FINANCIAL_DECISIONS_PROMPT,
 )
-from utils.api_handler import get_user_accounts
 from typing import List, Dict
 import uvicorn
 import requests
-import json
-from routers.bunq import all_functions
+from routers.shalom import all_functions
 
-from fastapi_mcp import FastApiMCP
-from bunq.sdk.context.api_context import ApiContext
-from bunq.sdk.context.bunq_context import BunqContext
-from bunq import ApiEnvironmentType
 import uvicorn
 from google import genai
-from google.genai import types
-
-app = FastAPI()
-
-# for 1883014 (100,000 euro), carly rogers 
-BUNQ_API = "sandbox_1ef4922132343f0676fce4bb699b145335bc58bc3fa1b3ab05cbbadf"
-token = "a8ded8ef649300ebc394192fbc30d02e083e9328edb96b058fe0abe5662751f4" 
-GEMINI_API = os.getenv("GEMINI_API_KEY")
-
-# initialize gemini client
-client = genai.Client(api_key=GEMINI_API)
-
-model_name = "gemini-2.0-flash"
-
-if os.path.exists("bunq_api_context.conf"):
-    os.remove("bunq_api_context.conf")
-    
-api_context = ApiContext.create(ApiEnvironmentType.SANDBOX, BUNQ_API, "Hackathon")
-api_context.save("bunq_api_context.conf")
-
-
-# Load the API context into the SDK
-BunqContext.load_api_context(api_context)
-
-user_context = BunqContext.user_context()
-
-@app.get("/user-person/{itemId}", operation_id="get_user_person")
-def user_person(itemId: str):
-    """Get the user person for the given itemId
-
-    Args:
-        itemId (str): The itemId of the user person
-
-    Returns:
-        dict: The user person for the given itemId
-    """
-    response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user-person/{itemId}",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-@app.get("/user/{userId}/monetary-account-bank", operation_id="get_monetary_account_bank")
-def monetary_account_bank(userId: str):
-    """Get the monetary account bank for the given userId
-
-    Args:
-        userId (str): The userId of the user
-    """
-    response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account-bank",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-@app.get("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
-def payment(userId: str, monetaryAccountId: str):
-    """Get the payment for the given userId and monetaryAccountId
-
-    Args:
-        userId (str): The userId of the user
-        monetaryAccountId (str): The monetaryAccountId of the user
-"""
-    response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account/{monetaryAccountId}/payment",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-# https://public-api.sandbox.bunq.com/v1/user/{userID}/event
-@app.get("/user/{userId}/event", operation_id="get_event_user")
-def event(userId: str):
-    """Get the event for the given userId
-
-    Args:
-        userId (str): The userId of the user
-    """
-
-    response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/event",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
-        timeout=1000
-    )
-
-    data = response.json()
-    
-    return data
-
-# https://public-api.sandbox.bunq.com/v1/user/{userID}/card-credit
-@app.post("/user/{userId}/card-credit", operation_id="create_card_credit_user")
-def card_credit(userId: str):
-    """Get the card for the given userId
-
-    Args:
-        userId (str): The userId of the user
-    """
-    response = requests.post(
-       f"https://public-api.sandbox.bunq.com/v1/user/{userId}/card-credit",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Content-Type":"application/json"},
-        data=json.dumps(
-            {"first_line":"text",
-             "second_line":"text",
-             "name_on_card":"text",
-             "preferred_name_on_card":"text",
-             "type":"MASTERCARD",
-             "product_type":"MAESTRO_DEBIT",
-             "monetary_account_id_fallback":1,
-             "order_status":"NEW_CARD_REQUEST_RECEIVED"
-             }),
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-# adding money to account
-@app.post("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
-def add_money_to_account(userId: str, monetaryAccountId: str):
-    """Add money to the given userId and monetaryAccountId
-
-    Args:
-        userId (str): The userId of the user
-        monetaryAccountId (str): The monetaryAccountId of the user
-    """
-    response = requests.get(
-        f"https://public-api.sandbox.bunq.com/v1/user/{userId}/monetary-account/{monetaryAccountId}/request-inquiry",
-        headers={"User-Agent":"text","X-Bunq-Client-Authentication":token,"Accept":"*/*"},
-        timeout=1000
-    )
-
-    data = response.json()
-    return data
-
-mcp = FastApiMCP(app)
-
-tools = [
-    user_person,
-    monetary_account_bank,
-    payment,
-    event,
-    card_credit,
-    add_money_to_account
-]
-
-if __name__ == "__main__":
-    mcp.mount()
-    
-    response = client.models.generate_content(
-    model=model_name,
-    contents="What is user id 1883014's monetary accounts?",
-    config=types.GenerateContentConfig(tools=tools),
-    )
-    
 
 load_dotenv()
+
 
 # initialize gemini client
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -325,9 +158,9 @@ def pre_pot_creation(request: ChatRequest):
         model=model_name,
         contents=str(request.messages),
         config=types.GenerateContentConfig(
-            # system_instruction=get_prompt(
-            #     request.participants, request.pot, State.PRE_POT_CREATION, request
-            # ),
+            system_instruction=get_prompt(
+                request.participants, request.pot, State.PRE_POT_CREATION, request
+            ),
             tools=[google_search_tool].extend(all_functions),
             response_modalities=["TEXT"],
 
@@ -359,8 +192,7 @@ def pot_created(request: ChatRequest):
         response = client.models.generate_content(
             model=model_name,
             contents=str(request.messages),
-            config=types.GenerateContentConfig(system_instruction=prompt_task),
-            tools=all_functions
+            config=types.GenerateContentConfig(system_instruction=prompt_task, tools=all_functions),
         )
     else:
         question_pv = client.models.generate_content(
