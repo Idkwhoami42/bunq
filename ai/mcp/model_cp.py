@@ -20,7 +20,7 @@ class Message(BaseModel):
 class ChatRequest(BaseModel):
     messages: List[Message]
 
-load_dotenv()
+# load_dotenv()
 
 app = FastAPI()
 
@@ -63,8 +63,8 @@ def user_person(itemId: str):
         timeout=1000
     )
 
-    data = response.json()
-    return data
+#     data = response.json()
+#     return data
 
 @app.get("/user/{userId}/monetary-account-bank", operation_id="get_monetary_account_bank")
 def monetary_account_bank(userId: str):
@@ -79,8 +79,8 @@ def monetary_account_bank(userId: str):
         timeout=1000
     )
 
-    data = response.json()
-    return data
+#     data = response.json()
+#     return data
 
 @app.get("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="get_payment_from_monetary_account")
 def payment(userId: str, monetaryAccountId: str):
@@ -96,8 +96,8 @@ def payment(userId: str, monetaryAccountId: str):
         timeout=1000
     )
 
-    data = response.json()
-    return data
+#     data = response.json()
+#     return data
 
 # https://public-api.sandbox.bunq.com/v1/user/{userID}/event
 @app.get("/user/{userId}/event", operation_id="get_event_user")
@@ -142,8 +142,8 @@ def card_credit(userId: str):
         timeout=1000
     )
 
-    data = response.json()
-    return data
+#     data = response.json()
+#     return data
 
 # adding money to account
 @app.post("/user/{userId}/monetary-account/{monetaryAccountId}/payment", operation_id="add_money_to_account")
@@ -160,8 +160,8 @@ def add_money_to_account(userId: str, monetaryAccountId: str):
         timeout=1000
     )
 
-    data = response.json()
-    return data
+#     data = response.json()
+#     return data
 
 mcp = FastApiMCP(app)
 

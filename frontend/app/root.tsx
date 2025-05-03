@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <div className="flex flex-col min-h-screen bg-white">
           {children}
-          <Toaster />
+          <Toaster position="top-center"/>
         </div>
         <ScrollRestoration />
         <Scripts />
